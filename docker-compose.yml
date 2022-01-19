@@ -1,0 +1,38 @@
+version: "3"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./app/public:/app/public
+    command: [nginx-debug, "-g", "daemon off;"]
+    links:
+      - php
+  php:
+    build:
+      context: .
+      dockerfile: PHP.Dockerfile
+    volumes:
+      - ./app/public:/app/public
+    links:
+      - mysql
+  mysql:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_USER: "tutorial"
+      MYSQL_PASSWORD: "secret"
+      MYSQL_DATABASE: "tutorial"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - 3306:3306
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8081:8080
+volumes:
+  mysqldata: {}
