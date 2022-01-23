@@ -1,5 +1,4 @@
 <?php require 'dbconnection.php'; ?>
-<?php require 'functions.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,14 +11,17 @@
 <body>
     
     <h1>Todo-lista</h1>
-    <?php createTask(); ?>
+
+    <?php include 'create.php' ?>
+
     <form action="index.php" method="POST">
-        <input type="text" name="title" placeholder="Titel">
-        <input type="checkbox" name="checkbox" value="done">
-        <input type="text" name="comment" placeholder="Kommentar">
+        <input type="text" name="title" placeholder="Titel" require>
+        <input type="text" name="comment" placeholder="Kommentar" require>
         <input type="submit" name="submit" value="Skapa">
     </form>
 
-     
+    <section class="show-todos">
+    <?php include 'read.php' ?>
+    </section>
 </body>
 </html>
