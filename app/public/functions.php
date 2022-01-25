@@ -48,8 +48,8 @@ function readTask(){
 }
 ?>
 <?php
-    if(isset($_GET['update'])){
-        $id = $_GET['update'];
+        if(isset($_GET['update'])){
+            $id = $_GET['update']; }
 
         function editTodos($id){
         global $conn;
@@ -65,11 +65,11 @@ function readTask(){
         ];
         return $editTask;
       }
-    }
 ?>
 
 <?php
     if(isset($_POST['submit'])){
+        
         $id = $_POST['id'];
         $title = $_POST['title'];
         $comment = $_POST['comment'];
