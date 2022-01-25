@@ -1,12 +1,16 @@
 <?php require 'dbconnection.php'; ?>
 <?php require 'functions.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <?php
 deleteTask();
+?>
+<div class="delete-msg">
+    <p><?php echo "Uppgiften togs bort!"; ?></p>
 
-echo "Uppgiften togs bort!"; ?>
+<div class="btns">
+    <a href="index.php">Gå tillbaka</a>
+</div>
+</div>
 
-    <div class="btns">
-        <a href="index.php">Gå tillbaka</a>
-    </div>
-
+<?php include 'includes/footer.php'; ?>

@@ -47,30 +47,44 @@ function readTask(){
     }
 }
 ?>
+<?php
+    if(isset($_GET['update'])){
+        $id = $_GET['update'];
+
+        function editTodos($id){
+        global $conn;
+
+        $query = 'SELECT * FROM todo WHERE id = :id';
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $editTask = [
+            'title' => $result['title'],
+            'comment' => $result['comment']
+        ];
+        return $editTask;
+      }
+    }
+?>
 
 <?php
-function updateTask(){
-    global $conn;
+    if(isset($_POST['submit'])){
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $comment = $_POST['comment'];
 
-    $id = $_GET['id'];
-    $title = $_POST['title'];
-    $comment = $_POST['comment'];
+        $row = [
+            ':id' => $id,
+            ':title' => $title,
+            ':comment' => $comment
+        ];
 
-    $row = [
-        ':id' => $id,
-        ':title' => $title,
-        ':comment' => $comment
-    ];
+        $query = 'UPDATE todo SET title = :title, comment = :comment WHERE id = :id';
+        $stmt = $conn->prepare($query);
 
-    $query = 'UPDATE todo SET title = :title, comment = :comment WHERE id = :id';
-    $stmt = $conn->prepare($query);
-
-    $stmt->bindParam(':id', $row['id'], PDO::PARAM_INT);
-    $stmt->bindParam(':title', $row['title']);
-    $stmt->bindParam(':comment', $row['comment']);
-
-    $stmt->execute();
-}
+        $stmt->execute($row);
+    }
 ?>
 
 <?php
