@@ -31,6 +31,7 @@
 
             $todos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
+            
             <?php
             if($todos){
             foreach($todos as $todo) { ?> 
@@ -39,7 +40,7 @@
                     <p><?php echo $todo['comment'];?></p>
                         <a id="<?php echo $todo['id'];?>" 
                             class="check-btn" 
-                            href="index.php?done=<?php echo $todo['id']?>"
+                            href="index.php?checked=<?php echo $todo['id']?>"
                             >Klar</a>     
                         <a id="<?php echo $todo['id'];?>" 
                             class="delete-btn" 
@@ -47,10 +48,12 @@
                             onclick="return confirm('Vill du ta bort uppgiften?')"
                             >Ta bort</a>
                 </div>
-                <?php }
-            } ?>
-
-        <?php checkTask($todo['checked'], $todo['id']); ?>
+                <?php checkTask($todo['checked'])?>
+                <?php } ?>
+                
+            <? } ?>
+            
+            
 
         </section>
 

@@ -65,17 +65,17 @@ function deleteTask(){
 }
 ?>
 
+<!-- Mark a task as done -->
 <?php
-function checkTask($checked, $id){
-    if(isset($_GET['done'])){
+function checkTask($checked){
+    if(isset($_GET['checked'])){
         global $conn;
+        $id = $_GET['checked'];
 
         if($checked == NULL){
             $checked = 1;
-            echo "checked";
         } else if($checked == 1) {
             $checked = NULL;
-            echo "not checked";
         }
 
         $query = 'UPDATE todo SET checked=:checked WHERE id=:id';
