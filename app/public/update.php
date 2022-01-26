@@ -1,33 +1,33 @@
-<?php require 'dbconnection.php' ?>
-<?php require 'functions.php' ?>
-<?php include 'includes/header.php' ?>
+<?php require 'dbconnection.php'?>
+<?php require 'functions.php'?>
+<?php include 'includes/header.php'?>
 
-<?php
- /* if(isset($_GET['update'])) {
-    $id = $_GET['update'];
-} */
-?>
+<header>
+<?php include 'includes/navbar.php'?>
+</header>
+
+<section>
 <?php updateTask() ?>
 
-<?php $query = 'SELECT * FROM todo';
+<!-- Access data from the table in the database -->
+<?php 
+$query = 'SELECT * FROM todo';
 $stmt = $conn->prepare($query);
 $stmt->execute();
 
 $todos = $stmt;
+while($todo = $todos->fetch(PDO::FETCH_ASSOC)) {
+?>
 
-$todo = $todos->fetch(PDO::FETCH_ASSOC)
-/* $editTask = editTodos($_GET['update']); */?>
+<!-- Form to update data in the table in the database -->
 
 <form action="update.php?update=<?php echo $todo['id'];?>" method="POST">
-    <input type="hidden" name="id" value="<?php echo $todo['id']/* $_GET['update']; */ ?>">
-    <input type="text" name="title" value="<?php echo $todo['title']/* $editTask['title'] */ ?>" required>
-    <input type="text" name="comment" value="<?php echo $todo['comment']/* $editTask['comment'] */ ?>" autocomplete="off">
+    <input type="hidden" name="id" value="<?php echo $todo['id']?>">
+    <input type="text" name="title" value="<?php echo $todo['title']?>" required>
+    <input type="text" name="comment" value="<?php echo $todo['comment']?>" autocomplete="off">
     <input type="submit" name="submit" value="Uppdatera">
 </form>
 
-
-    <div class="btns">
-        <a href="index.php">Gå tillbaka</a>
-    </div>
-
-<?php include 'includes/footer.php' ?>
+<?php } ?>
+</section>
+<?php include 'includes/footer.php'?>

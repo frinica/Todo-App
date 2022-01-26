@@ -11,6 +11,23 @@ body {
   background-size: cover;
 }
 
+ul {
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border: 2px solid black;
+  border-radius: 4px;
+  list-style-type: none;
+}
+
+li {
+  display: inline;
+}
+
+li a {
+  padding: 1rem;
+  text-decoration: none;
+}
+
 .container {
   background-color: rgb(255, 255, 255, 0.6);
   margin: 2rem;

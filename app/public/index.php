@@ -1,20 +1,21 @@
+<?php require 'dbconnection.php'?>
+<?php require 'functions.php'?>
 <?php include 'includes/header.php'?>
-<?php require 'dbconnection.php'; ?>
-<?php require 'functions.php'; ?>
 
-    
-<div class="container">
+
     <header>
         <h1>Todo-lista</h1>
+        <?php include 'includes/navbar.php'?>
     </header>
 
         <!--Form to create a new todo-item-->
         <?php createTask() ?>
         <div class="form-container"></div>
+            <h2>Lägg till en uppgift</h2>
             <form action="index.php" method="POST" class="form">
                 <input type="text" name="title" class="form-input" placeholder="Titel" required>
                 <input type="text" name="comment" class="form-input" placeholder="Kommentar" autocomplete="off">
-                <input type="submit" name="create" class="form-input" value="Skapa uppgift!">
+                <input type="submit" name="submit" class="form-input" value="Skapa uppgift!">
             </form>
         </div>
 
@@ -28,26 +29,29 @@
             $stmt = $conn->prepare($query);
             $stmt->execute();
 
-            $todos = $stmt;
-
-            while($todo = $todos->fetch(PDO::FETCH_ASSOC)) { ?>
+            $todos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+            <?php
+            if($todos){
+            foreach($todos as $todo) { ?> 
                 <div class="todo-item">
-                    <a id="<?php echo $todo['id'];?>" class="delete-btn" href="index.php?delete=<?php echo $todo['id']; ?>">Ta bort</a>
-                    <a id="<?php echo $todo['id'];?>" class="edit-btn" href="update.php?update=<?php echo $todo['id']; ?>">Redigera</a>
-                    <?php if($todo['checked']){ ?>
-                        <h2 class="checked"><?php echo $todo['title'];?></h2>
-                        <p class="checked"><?php echo $todo['comment'];?></p>
-
-                        <input type="checkbox" class="check-box" data-todo-id ="<?php echo $todo['id'];?>" checked>
-                    <?php }else { ?>
-                        <h2><?php echo $todo['title'];?></h2>
-                        <p><?php echo $todo['comment'];?></p>
-
-                        <input type="checkbox" data-todo-id ="<?php echo $todo['id']; ?>" class="check-box">
-                    <?php } ?>
+                    <h2><?php echo $todo['title'];?></h2>
+                    <p><?php echo $todo['comment'];?></p>
+                        <a id="<?php echo $todo['id'];?>" 
+                            class="check-btn" 
+                            href="index.php?done=<?php echo $todo['id']?>"
+                            >Klar</a>     
+                        <a id="<?php echo $todo['id'];?>" 
+                            class="delete-btn" 
+                            href="index.php?delete=<?php echo $todo['id']?>" 
+                            onclick="return confirm('Vill du ta bort uppgiften?')"
+                            >Ta bort</a>
                 </div>
-            <?php } ?>
-        </section>
-</div>
+                <?php }
+            } ?>
 
-<?php include 'includes/footer.php'; ?>
+        <?php checkTask($todo['checked'], $todo['id']); ?>
+
+        </section>
+
+<?php include 'includes/footer.php'?>
