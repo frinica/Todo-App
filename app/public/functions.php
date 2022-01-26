@@ -1,5 +1,4 @@
 <?php require 'dbconnection.php'; ?>
-<?php include 'includes/header.php' ?>
 
 <?php
 
@@ -24,7 +23,7 @@ function createTask(){
 ?>
 
 <?php
-function readTask(){
+/* function readTask(){
     global $conn;
 
     $query = 'SELECT * FROM todo';
@@ -46,12 +45,12 @@ function readTask(){
         </div>
     <?php } 
     }
-}
+} */
 ?>
 
 <!-- Catch data from the table to use in update.php -->
 <?php
-        function editTodos($id){
+/*         function editTodos($id){
         global $conn;
 
         $query = 'SELECT * FROM todo WHERE id = :id';
@@ -64,12 +63,31 @@ function readTask(){
             'comment' => $result['comment']
         ];
         return $editTask;
-      }
+      } */
+
+/* function readTasks(){
+    global $conn;
+
+    $query = 'SELECT * FROM todo';
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $todos = [
+        'id' => $result['id'],
+        'title' => $result['title'],
+        'comment' => $result['comment'],
+        'checked' => $result['checked']
+    ];
+
+    return $todos;
+}  */
 ?>
 
-<!-- Update records in update.php -->
 <?php
+function updateTask(){
     if(isset($_POST['submit'])){
+        global $conn;
         
         $id = $_POST['id'];
         $title = $_POST['title'];
@@ -85,11 +103,10 @@ function readTask(){
         $stmt = $conn->prepare($query);
 
         $stmt->execute($row);
-
-        echo "<div class='btns'>
-        <a href='index.php'>Gå tillbaka</a>
-        </div>";
-    } 
+        // Add header(location)
+        echo "Uppgiften har uppdaterats!";
+    }
+} 
 ?>
 
 <?php
@@ -104,8 +121,8 @@ function deleteTask(){
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
+        
+        // Add header(location)
     }
 }
 ?>
-
-<?php include 'includes/footer.php' ?>

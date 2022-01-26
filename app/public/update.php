@@ -3,19 +3,28 @@
 <?php include 'includes/header.php' ?>
 
 <?php
-if(isset($_GET['update'])) {
+ /* if(isset($_GET['update'])) {
     $id = $_GET['update'];
-}
+} */
 ?>
+<?php updateTask() ?>
 
-<?php $editTask = editTodos($_GET['update']);?>
+<?php $query = 'SELECT * FROM todo';
+$stmt = $conn->prepare($query);
+$stmt->execute();
 
-<form action="functions.php" method="POST">
-    <input type="hidden" name="id" value="<?php echo $_GET['update']; ?>">
-    <input type="text" name="title" value="<?php echo $editTask['title'] ?>" required>
-    <input type="text" name="comment" value="<?php echo $editTask['comment'] ?>" autocomplete="off">
+$todos = $stmt;
+
+$todo = $todos->fetch(PDO::FETCH_ASSOC)
+/* $editTask = editTodos($_GET['update']); */?>
+
+<form action="update.php?update=<?php echo $todo['id'];?>" method="POST">
+    <input type="hidden" name="id" value="<?php echo $todo['id']/* $_GET['update']; */ ?>">
+    <input type="text" name="title" value="<?php echo $todo['title']/* $editTask['title'] */ ?>" required>
+    <input type="text" name="comment" value="<?php echo $todo['comment']/* $editTask['comment'] */ ?>" autocomplete="off">
     <input type="submit" name="submit" value="Uppdatera">
 </form>
+
 
     <div class="btns">
         <a href="index.php">Gå tillbaka</a>
