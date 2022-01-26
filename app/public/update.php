@@ -1,7 +1,12 @@
 <?php require 'dbconnection.php' ?>
 <?php require 'functions.php' ?>
-<?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php' ?>
 
+<?php
+if(isset($_GET['update'])) {
+    $id = $_GET['update'];
+}
+?>
 
 <?php $editTask = editTodos($_GET['update']);?>
 
@@ -12,9 +17,8 @@
     <input type="submit" name="submit" value="Uppdatera">
 </form>
 
-
     <div class="btns">
         <a href="index.php">Gå tillbaka</a>
     </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'includes/footer.php' ?>

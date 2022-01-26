@@ -1,4 +1,5 @@
 <?php require 'dbconnection.php'; ?>
+<?php include 'includes/header.php' ?>
 
 <?php
 
@@ -47,10 +48,9 @@ function readTask(){
     }
 }
 ?>
-<?php
-        if(isset($_GET['update'])){
-            $id = $_GET['update']; }
 
+<!-- Catch data from the table to use in update.php -->
+<?php
         function editTodos($id){
         global $conn;
 
@@ -67,6 +67,7 @@ function readTask(){
       }
 ?>
 
+<!-- Update records in update.php -->
 <?php
     if(isset($_POST['submit'])){
         
@@ -84,7 +85,11 @@ function readTask(){
         $stmt = $conn->prepare($query);
 
         $stmt->execute($row);
-    }
+
+        echo "<div class='btns'>
+        <a href='index.php'>Gå tillbaka</a>
+        </div>";
+    } 
 ?>
 
 <?php
@@ -102,3 +107,5 @@ function deleteTask(){
     }
 }
 ?>
+
+<?php include 'includes/footer.php' ?>
