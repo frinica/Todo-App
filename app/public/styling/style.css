@@ -24,8 +24,13 @@ li {
 }
 
 li a {
+  font-size: 1.2rem;
   padding: 1rem;
   text-decoration: none;
+}
+
+a:hover {
+  font-weight: bold;
 }
 
 .container {
@@ -44,8 +49,11 @@ h1 {
   text-shadow: 2px 2px rgba(0, 0, 0, 0.301);
 }
 
-.form {
-  width: 40%;
+h2 {
+  font-size: 1.5rem;
+}
+
+form {
   padding: 2rem;
   margin-left: auto;
   margin-right: auto;
@@ -54,9 +62,18 @@ h1 {
   align-items: center;
 }
 
-.form-input {
+input,
+textarea {
+  width: 40%;
+  font-family: "Abel", sans-serif;
+  font-size: 1rem;
   padding: 0.5rem;
   margin: 0.2rem;
+  resize: none;
+}
+
+#form-comment {
+  height: 7rem;
 }
 
 .show-todos {
@@ -67,4 +84,34 @@ h1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.todo-item {
+  padding: 1rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  padding: 1rem 0 0 0.7rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+}
+
+.btn {
+  margin: 0 1rem;
+}
+
+.btn-done {
+  color: green;
+}
+
+.btn-del {
+  color: red;
 }

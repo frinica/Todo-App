@@ -12,17 +12,16 @@
         <?php createTask() ?>
         <div class="form-container"></div>
             <h2>Lägg till en uppgift</h2>
-            <form action="index.php" method="POST" class="form">
-                <input type="text" name="title" class="form-input" placeholder="Titel" required>
-                <input type="text" name="comment" class="form-input" placeholder="Kommentar" autocomplete="off">
-                <input type="submit" name="submit" class="form-input" value="Skapa uppgift!">
+            <form action="index.php" method="POST">
+                <input type="text" name="title" placeholder="Titel" required>
+                <textarea cols="30" rows=="10" name="comment" id="form-comment" placeholder="Kommentar" autocomplete="off"></textarea>
+                <input type="submit" name="submit" value="Skapa uppgift!">
             </form>
         </div>
 
         <!--Section where the todos will appear-->
         <section class="show-todos">
             <?php deleteTask() ?>
-
         <!-- Read and import rows from the database -->
            <?php 
             $query = 'SELECT * FROM todo';
@@ -34,27 +33,34 @@
             
             <?php
             if($todos){
-            foreach($todos as $todo) { ?> 
-                <div class="todo-item">
-                    <h2><?php echo $todo['title'];?></h2>
-                    <p><?php echo $todo['comment'];?></p>
+                foreach($todos as $todo) { ?> 
+                    <div class="todo-item">
+                    <!-- Add/remove a div if the task has been marked/unmarked as done -->
+                    <?php 
+                    if($todo['checked'] == 1){ ?>
+                        <div class="done-item">
+                            <h3><?php echo $todo['title'];?></h3>
+                            <p><?php echo $todo['comment'];?></p>
+                        </div>
+                        <?php } 
+                        else {?>
+                            <h3><?php echo $todo['title'];?></h3>
+                            <p><?php echo $todo['comment'];?></p>
+                        <?php } ?>
+                        <!-- Links to remove or mark a task as done -->
                         <a id="<?php echo $todo['id'];?>" 
-                            class="check-btn" 
+                            class="btn btn-done" 
                             href="index.php?checked=<?php echo $todo['id']?>"
-                            >Klar</a>     
+                            >&#10003;</a>     
                         <a id="<?php echo $todo['id'];?>" 
-                            class="delete-btn" 
+                            class="btn btn-del" 
                             href="index.php?delete=<?php echo $todo['id']?>" 
                             onclick="return confirm('Vill du ta bort uppgiften?')"
-                            >Ta bort</a>
-                </div>
-                <?php checkTask($todo['checked'])?>
-                <?php } ?>
-                
-            <? } ?>
-            
-            
-
+                            >&#128465;</a>
+                    </div>
+                    <?php checkTask($todo['checked'])?>
+                    <?php }
+            } ?>
         </section>
 
 <?php include 'includes/footer.php'?>
