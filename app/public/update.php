@@ -1,14 +1,15 @@
-<?php require 'dbconnection.php'?>
-<?php require 'functions.php'?>
-<?php include 'includes/header.php'?>
+<?php
+require 'dbconnection.php';
+require 'functions.php';
+updateTask();
+include 'includes/head.php';
+?>
 
 <header>
-<?php include 'includes/navbar.php'?>
+<h1><a href="index.php">Todo-lista</a></h1>
 </header>
 
 <section>
-<?php updateTask() ?>
-
 <!-- Access data from the table in the database -->
 <?php 
 $query = 'SELECT * FROM todo';

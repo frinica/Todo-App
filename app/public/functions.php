@@ -7,7 +7,7 @@ function createTask(){
 
     if (isset($_POST['title'])) {
         $query = 
-        'INSERT INTO todo(title, comment) VALUES(:title, :comment) ';
+        'INSERT INTO todo(title, comment, checked) VALUES(:title, :comment, 0) ';
         $stmt = $conn->prepare($query);
     
         $title = $_POST['title'];
@@ -41,8 +41,7 @@ function updateTask(){
         $stmt = $conn->prepare($query);
 
         $stmt->execute($row);
-        // Add header(location)
-        echo "Uppgiften har uppdaterats!";
+        echo "<h2 id='updated'>Uppgiften har uppdaterats!</h2>";
     }
 } 
 ?>
@@ -59,31 +58,21 @@ function deleteTask(){
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
         $stmt->execute();
-        // Add header(location)
     }
 }
 ?>
 
 <!-- Mark a task as done -->
 <?php
-function checkTask($checked){
+function checkTask(){
     if(isset($_GET['checked'])){
         global $conn;
         $id = $_GET['checked'];
-
-        if($checked == NULL){
-            $checked = 1;
-        } else if($checked == 1) {
-            $checked = NULL;
-        }
-
-        $query = 'UPDATE todo SET checked=:checked WHERE id=:id';
+        
+        $query = 'UPDATE todo SET checked=ABS(checked - 1) WHERE id=:id';
         $stmt = $conn->prepare($query);
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':checked', $checked);
         $stmt->execute();
-
-        // Add header(location)
     }
 }
 ?>
