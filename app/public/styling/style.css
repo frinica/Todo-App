@@ -136,11 +136,11 @@ p {
   margin: 0 1rem;
 }
 
-.btn-done:hover {
+.todo-done:hover {
   color: green;
 }
 
-.btn-del:hover {
+.todo-delete:hover {
   color: red;
 }
 
@@ -149,4 +149,22 @@ p {
   font-size: 1rem;
   margin: 1.5rem;
   color: green;
+}
+
+@media (max-width: 800px) {
+  form {
+    padding: 1rem;
+  }
+  input,
+  textarea {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  h1,
+  h1 a {
+    font-size: 2.5rem;
+    padding: 1rem;
+  }
 }

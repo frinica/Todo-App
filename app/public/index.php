@@ -52,8 +52,8 @@ include 'includes/head.php';
                     <p><?php echo $todo['comment']; ?></p>
                 <?php } ?>
                 <!-- Links to remove or mark a task as done -->
-                <a id="<?php echo $todo['id']; ?>" class="btn btn-done" href="index.php?checked=<?php echo $todo['id'] ?>">&#10003;</a>
-                <a id="<?php echo $todo['id']; ?>" class="btn btn-del" href="index.php?delete=<?php echo $todo['id'] ?>" onclick="return confirm('Vill du ta bort uppgiften?')">X</a>
+                <a class="btn todo-done" href="index.php?checked=<?php echo $todo['id'] ?>">&#10003;</a>
+                <a class="btn todo-delete" href="index.php?delete=<?php echo $todo['id'] ?>" onclick="return confirm('Vill du ta bort uppgiften?')">X</a>
             </div>
     <?php }
     } ?>
